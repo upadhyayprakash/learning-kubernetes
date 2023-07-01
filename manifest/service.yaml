@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-service
+  namespace: development
+spec:
+  selector:
+    app: pod-info # this must be the same app label used in the Deployment.
+  ports:
+  - port: 80 # default port
+    targetPort: 3000
+  type: LoadBalancer # other service types: NodePort, ClusterIP

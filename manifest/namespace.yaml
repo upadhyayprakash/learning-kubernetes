@@ -1,0 +1,11 @@
+--- # creating a 'development' namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: development
+
+--- # creating a 'production' namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: production
