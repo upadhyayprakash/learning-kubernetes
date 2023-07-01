@@ -62,6 +62,8 @@
   minikube start
   ```
 
+  ![Minikube Start Command](images/image_12%20start_minikube.png)
+
   > Learn more about minikube with the handbook (https://minikube.sigs.k8s.io/docs/handbook/)
 
 ### Kubernetes Objects:
