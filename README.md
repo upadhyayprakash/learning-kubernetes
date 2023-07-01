@@ -96,13 +96,24 @@
    ```
 
 2. Create a Deployment: check the `deployment.yaml`
-3. Inspect the created pods and events log
+
+   ![Deployed Pods](images/image_3%20get_pods_namespace.png)
+
+3. Run the manifest,
+
+   ```yaml
+   k apply -f deployment.yaml
+   ```
+
+   ![Run Manifest](images/image_6%20k_apply_file.png)
+
+4. Inspect the created pods and events log
 
    ```yaml
    k describe pod <pod_name> -n <namespace>
    ```
 
-4. Now that we've created the Pods, we need to check if it's really running our application inside it. We'd use BusyBox for this.
+5. Now that we've created the Pods, we need to check if it's really running our application inside it. We'd use BusyBox for this.
 
 ### BusyBox: Inspect the Pod
 
@@ -120,11 +131,16 @@
   ```
 
 - `-o wide` gives more details about the pod.
-- Once the application pod's IP address is known, we can run the following script from **busybox** pod to open the interactive terminal,
+
+  ![Wide Details Pods](images/image_5%20get_pods_wide.png)
+
+- Once the application pod's IP address is known, we can run the following script from **busybox** pod to open the _interactive_ terminal,
 
   ```yaml
   k exec -it <busy_box_pod_name> -- /bin/sh
   ```
+
+  ![Busybox Exec](images/image_7%20busybox_exec_sh.png)
 
 - Once logged-in, run the wget command (along with correct port number: `3000`) to get the service response,
 
@@ -133,10 +149,16 @@
   ```
 
 - The response (i.e Pod Info) should've downloaded in `index.html`.
+
+  ![Busybox Wget](images/image_8%20busybox_wget.png)
+
 - You can also check the application log by,
+
   ```yaml
   k logs <pod_name> -n <namespace>
   ```
+
+  ![Pod Log](images/image_9%20logs_pod.png)
 
 ### Kubernetes Service
 
@@ -164,9 +186,13 @@
 
 - You might want to delete your k8s resources when it's no longer needed.
 - The delete command is,
+
   ```yaml
   k delete -f <yaml_file>
   ```
+
+  ![Delete k8s Objects](images/image_10%20delete_k8s_objects.png)
+
 - Deleting the resources can be followed in following sequence,
 
   ```bash
@@ -181,7 +207,9 @@
   minikube delete
   ```
 
-  > You can see all the available k8s API resources using this command, `k api-resources`
+  ![Delete Minikube](images/image_11%20delete_minikube.png)
+
+  > You can see all the available k8s API resources using this command, `k api-resources` > ![k8s objects](images/image_2%20api_resources.png)
 
 ### Kubernetes Architecture
 
@@ -190,6 +218,8 @@
 - They're like an airport's ATC tower that controls flights.
 - Every cluster in k8s has a **Control Plane**.
 - Components within Control Plane:
+
+  ![System Pods](images/image_1%20get_system_pods.png)
 
   - **k8s API Server**:
     - It's an REST service running inside our cluster as a Pod which accepts users request. It can be interacted using `kubectl` or `kubeadm`.
@@ -232,6 +262,9 @@
 #### How Control Plane and Worker Node work together
 
 - Check the sequence diagram for `k apply -f deployment.yaml` command.
+
+  ![Kubernetes Architecture](images/image_4%20kubernetes%20architecture.png)
+
 - Also watch this video: https://www.youtube.com/watch?v=X40LJM0KuQ8
 
 ### Other ways to Deploy and Manage the Pods
